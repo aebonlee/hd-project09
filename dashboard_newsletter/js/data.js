@@ -383,6 +383,24 @@
     };
   }
 
+  /** ALL 화면용: 지역 × 브랜드 수신자수 (100% 스택 발송 비중용) */
+  function brandRegionVolume(rows) {
+    const regions = REGIONS.filter(function (rg) {
+      return rows.some(function (r) { return r.region === rg; });
+    });
+    return {
+      regions,
+      series: BRANDS.map(function (b) {
+        return {
+          brand: b,
+          values: regions.map(function (rg) {
+            return totals(rows.filter(function (r) { return r.brand === b && r.region === rg; })).recipients;
+          })
+        };
+      })
+    };
+  }
+
   /**
    * 전월 대비 증감: 선택 필터의 최근 월 vs 그 직전 월(데이터 존재 기준).
    * 반환 { curMonth, prevMonth, cur:{...}, prev:{...} } — 비교 불가 시 null.
@@ -453,7 +471,7 @@
     matchSheetKind, mapHeaders, parseSheet, parseWorkbook,
     filterSends, filterSimple,
     rate, totals, byRegion, byMonth, byAudience, byBrand,
-    brandGroupMatrix, brandRegionMatrix, momDelta,
+    brandGroupMatrix, brandRegionMatrix, brandRegionVolume, momDelta,
     contentRanking, readerStats, sendsToAoa
   };
 });

@@ -164,6 +164,10 @@
           <div class="card-head"><h2>지역별 브랜드 오픈율 비교</h2><span class="hint">Open rate by region</span></div>
           <div class="chart-box tall"><canvas id="brandRegionChart"></canvas></div>
         </div>
+        <div class="card span-12">
+          <div class="card-head"><h2>지역별 브랜드 발송 비중</h2><span class="hint">100% Stacked · 수신자수 기준</span></div>
+          <div class="chart-box tall"><canvas id="brandShareChart"></canvas></div>
+        </div>
       </div>
     </section>
 
@@ -190,15 +194,19 @@
 
     <!-- 월별 동향 -->
     <section class="grid">
-      <div class="card span-12">
+      <div class="card span-7">
         <div class="card-head">
           <h2>월별 오픈율 동향 (Hyundai vs Develon)</h2>
           <label class="combo-toggle"><input type="checkbox" id="comboToggle"> 발송건수 콤보 표시</label>
         </div>
         <div class="chart-box short"><canvas id="trendChart"></canvas></div>
-        <div id="trendSendBox">
-          <div class="chart-box" style="height:150px; margin-top:10px;"><canvas id="trendSendChart"></canvas></div>
+      </div>
+      <div class="card span-5">
+        <div class="card-head">
+          <h2 id="volumeTitle">월별 발송·오픈 구성</h2>
+          <span class="hint">Stacked Area · 오픈 + 미오픈 = 발송</span>
         </div>
+        <div class="chart-box short"><canvas id="volumeChart"></canvas></div>
       </div>
     </section>
 

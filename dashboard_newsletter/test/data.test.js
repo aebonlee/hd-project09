@@ -146,6 +146,17 @@ ok('브랜드 비교 매트릭스', () => {
   assert.strictEqual(rm.series.length, 2);
   assert.ok(rm.regions.length > 0);
 });
+ok('지역×브랜드 발송량(100% 스택용)', () => {
+  const vm = NLData.brandRegionVolume(SAMPLE.sends);
+  assert.strictEqual(vm.series.length, 2);
+  assert.deepStrictEqual(vm.regions, NLData.byRegion(SAMPLE.sends).map(r => r.region));
+  // 지역별 브랜드 합계 = 지역 전체 수신자수
+  vm.regions.forEach((rg, i) => {
+    const sum = vm.series.reduce((s, se) => s + se.values[i], 0);
+    const expected = NLData.totals(SAMPLE.sends.filter(r => r.region === rg)).recipients;
+    assert.strictEqual(sum, expected, rg);
+  });
+});
 ok('콘텐츠 순위/독자 통계', () => {
   const rank = NLData.contentRanking(SAMPLE.contents, { brand: 'HYUNDAI', months: [3, 4, 5, 6, 7] });
   assert.ok(rank.length > 1);
