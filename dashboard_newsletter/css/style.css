@@ -357,8 +357,6 @@ table.tbl { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
 /* ---------- 콤보 토글 ---------- */
 .combo-toggle { display: flex; align-items: center; gap: 7px; font-size: 0.78rem; color: var(--text-2); cursor: pointer; user-select: none; }
 .combo-toggle input { accent-color: var(--primary); }
-#trendSendBox { display: none; }
-#trendSendBox.show { display: block; }
 
 /* ---------- 업로드 모달 ---------- */
 .modal-backdrop {
