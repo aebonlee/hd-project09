@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ko" data-brand="HYUNDAI" data-mode="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AMPS 뉴스레터 대시보드</title>
+<!-- DEVELON 영문 서체 Exo (오프라인 시 Arial/Noto Sans KR 폴백) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Exo:wght@500;700;800&family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="layout">
+
+  <!-- ==================== 사이드바 필터 ==================== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="logo">AMPS <b>Newsletter</b></div>
+    <div class="logo-sub">HD건설기계 AMPS기획팀 · 결과보고 대시보드</div>
+    <hr>
+
+    <section class="filter-group">
+      <h3>1. 브랜드 구분 (BRAND)</h3>
+      <select id="brandSelect" aria-label="브랜드 선택">
+        <option value="ALL">All (전체)</option>
+        <option value="HYUNDAI" selected>Hyundai (현대)</option>
+        <option value="DEVELON">Develon (디벨론)</option>
+      </select>
+    </section>
+
+    <section class="filter-group">
+      <h3>2. 월별 구분 (MONTH)</h3>
+      <div class="check-grid" id="monthChecks"></div>
+      <div class="check-actions">
+        <button type="button" data-target="month" data-mode="all">전체선택</button>
+        <button type="button" data-target="month" data-mode="none">해제</button>
+      </div>
+    </section>
+
+    <section class="filter-group">
+      <h3>3. 내부/딜러 구분 (AUDIENCE)</h3>
+      <div class="check-grid" id="audienceChecks"></div>
+    </section>
+
+    <section class="filter-group">
+      <h3>4. 지역별 구분 (REGION)</h3>
+      <div class="check-grid" id="regionChecks"></div>
+      <div class="check-actions">
+        <button type="button" data-target="region" data-mode="all">전체선택</button>
+        <button type="button" data-target="region" data-mode="none">해제</button>
+      </div>
+    </section>
+
+    <div class="sidebar-foot">
+      엑셀 업로드만으로 자동 반영됩니다.<br>
+      양식: <code>templates/뉴스레터_업로드양식.xlsx</code>
+    </div>
+  </aside>
+
+  <!-- ==================== 메인 ==================== -->
+  <main class="main">
+    <header class="topbar">
+      <div>
+        <h1 id="pageTitle">HYUNDAI 뉴스레터 대시보드</h1>
+        <p class="subtitle">HD건설기계 글로벌 뉴스레터 성과 통합 보고 플랫폼</p>
+      </div>
+      <div class="top-actions">
+        <span class="data-badge" id="dataBadge">현재: 샘플 데이터</span>
+        <button class="btn" id="btnSample" type="button">샘플 데이터</button>
+        <button class="btn primary" id="btnUpload" type="button">&#8679; 데이터 업로드</button>
+        <button class="btn icon" id="btnMenu" type="button" aria-label="메뉴">&#9776;</button>
+        <nav class="menu" id="menuDropdown">
+          <button type="button" id="menuUpload"><span class="mi">&#128194;</span>엑셀 데이터 업로드</button>
+          <button type="button" id="menuTheme"><span class="mi">&#127769;</span><span id="menuThemeLabel">Dark 테마</span></button>
+          <button type="button" id="menuPng"><span class="mi">&#128444;</span>PNG 이미지 저장 (차트별)</button>
+          <button type="button" id="menuPdf"><span class="mi">&#128424;</span>PDF 인쇄 / 저장</button>
+          <button type="button" id="menuExcel"><span class="mi">&#128229;</span>필터 결과 엑셀 다운로드</button>
+        </nav>
+      </div>
+    </header>
+
+    <!-- KPI 카드 -->
+    <section class="kpi-row" id="kpiRow" aria-label="핵심 지표"></section>
+
+    <!-- 지역별 현황 + 그룹별 성과/결과 분석 -->
+    <section class="grid">
+      <div class="card span-7 region-card">
+        <div class="card-head">
+          <h2 id="regionTitle">지역별 뉴스레터 오픈 현황</h2>
+          <div class="tabs" role="tablist">
+            <button type="button" id="tabMap" class="active" role="tab">세계지도</button>
+            <button type="button" id="tabGauge" role="tab">도넛 게이지</button>
+          </div>
+        </div>
+
+        <!-- 세계지도 뷰: 단순화한 대륙 실루엣 + 지역 버블 -->
+        <div class="map-wrap" id="mapView">
+          <svg viewBox="0 0 1000 470" role="img" aria-label="지역별 오픈율 세계지도">
+            <g class="map-land">
+              <!-- 북미 -->
+              <path d="M 40,95 Q 35,60 90,55 Q 150,42 220,52 Q 300,58 340,92 Q 352,112 330,128 Q 300,138 288,158 Q 272,186 252,204 Q 238,214 230,196 Q 222,176 196,172 Q 160,160 130,135 Q 80,120 40,95 Z"/>
+              <!-- 그린란드 -->
+              <path d="M 355,38 Q 390,28 408,45 Q 412,70 385,78 Q 358,80 350,60 Q 348,44 355,38 Z"/>
+              <!-- 남미 -->
+              <path d="M 285,225 Q 310,212 340,228 Q 380,240 398,262 Q 402,292 382,318 Q 362,352 340,390 Q 328,412 316,392 Q 304,352 300,310 Q 288,268 280,244 Q 278,230 285,225 Z"/>
+              <!-- 유럽 -->
+              <path d="M 475,130 Q 470,105 495,95 Q 515,70 540,72 Q 570,66 600,78 Q 620,92 610,108 Q 590,120 570,122 Q 545,130 528,142 Q 505,150 490,145 Q 477,140 475,130 Z"/>
+              <!-- 아프리카 -->
+              <path d="M 470,170 Q 490,152 530,158 Q 570,158 595,170 Q 615,180 618,200 Q 630,214 638,228 Q 640,244 620,246 Q 600,250 592,272 Q 585,305 570,330 Q 558,352 542,336 Q 528,312 520,280 Q 505,250 480,228 Q 462,205 462,188 Q 462,176 470,170 Z"/>
+              <!-- 아시아 / 러시아 -->
+              <path d="M 615,105 Q 610,80 640,70 Q 690,52 760,48 Q 850,42 930,55 Q 975,62 970,85 Q 950,100 920,105 Q 900,118 880,135 Q 866,152 850,160 Q 835,172 828,188 Q 818,206 800,214 Q 782,222 770,206 Q 755,190 735,196 Q 720,226 710,240 Q 700,252 692,236 Q 686,214 680,196 Q 668,176 650,165 Q 630,150 620,132 Q 614,118 615,105 Z"/>
+              <!-- 일본 -->
+              <ellipse cx="893" cy="150" rx="10" ry="20" transform="rotate(28 893 150)"/>
+              <!-- 인도네시아 군도 -->
+              <ellipse cx="775" cy="258" rx="20" ry="6"/>
+              <ellipse cx="815" cy="266" rx="16" ry="5"/>
+              <ellipse cx="852" cy="258" rx="13" ry="5"/>
+              <!-- 호주 -->
+              <path d="M 830,318 Q 850,300 885,304 Q 918,310 928,332 Q 930,354 908,362 Q 880,370 855,362 Q 832,352 826,334 Q 825,322 830,318 Z"/>
+              <!-- 뉴질랜드 -->
+              <ellipse cx="958" cy="392" rx="7" ry="14" transform="rotate(20 958 392)"/>
+            </g>
+            <g id="mapBubbles"></g>
+          </svg>
+          <div class="map-legend">
+            <span class="lg"><span class="dot"></span>버블 크기 = 수신자 수</span>
+            <span class="lg"><span class="dot faint"></span>색 농도 = 오픈율</span>
+            <span class="lg">버블에 마우스를 올리면 상세 수치가 표시됩니다.</span>
+          </div>
+          <div class="rank-list" id="mapRankList" aria-label="지역별 오픈율 순위"></div>
+        </div>
+
+        <!-- 도넛 게이지 뷰 -->
+        <div class="gauge-grid" id="gaugeView" style="display:none"></div>
+      </div>
+
+      <div class="span-5" style="display:flex; flex-direction:column; gap:18px; min-width:0;">
+        <div class="card">
+          <div class="card-head">
+            <h2 id="groupTableTitle">그룹별 성과 상세</h2>
+            <span class="hint" id="groupTableHint"></span>
+          </div>
+          <div class="tbl-wrap"><table class="tbl" id="groupTable"></table></div>
+        </div>
+        <div class="card" style="flex:1">
+          <div class="card-head">
+            <h2>결과 분석 <span class="badge">AI 자동 기입</span></h2>
+            <button class="btn" type="button" id="btnCopyInsights" style="padding:5px 11px; font-size:0.75rem;">복사</button>
+          </div>
+          <div class="insight-list" id="insightList"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ALL 화면: 브랜드 비교 -->
+    <section id="allSection" style="display:none">
+      <h2 class="section-title">브랜드 비교 <span class="tag">ALL</span></h2>
+      <div class="grid">
+        <div class="card span-6">
+          <div class="card-head"><h2>브랜드/그룹별 오픈율 비교</h2><span class="hint">Grouped comparison</span></div>
+          <div class="chart-box"><canvas id="brandGroupChart"></canvas></div>
+        </div>
+        <div class="card span-6">
+          <div class="card-head"><h2>지역별 브랜드 오픈율 비교</h2><span class="hint">Open rate by region</span></div>
+          <div class="chart-box tall"><canvas id="brandRegionChart"></canvas></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 클릭 심층 분석 -->
+    <section>
+      <h2 class="section-title">뉴스레터 클릭 및 행동 심층 분석 <span class="badge" id="clickTotalBadge">Click Total: 0회</span></h2>
+      <div class="grid">
+        <div class="card span-4">
+          <div class="card-head"><h2>콘텐츠 선호도 순위</h2><span class="hint">Content Clicks</span></div>
+          <div class="chart-box"><canvas id="contentChart"></canvas></div>
+          <div class="callout" id="contentCallout"></div>
+        </div>
+        <div class="card span-4">
+          <div class="card-head"><h2>독자별 클릭 빈도 분포</h2><span class="hint">Reader Clicks</span></div>
+          <div class="chart-box"><canvas id="readerChart"></canvas></div>
+        </div>
+        <div class="card span-4">
+          <div class="card-head"><h2>핵심 반응 독자</h2><span class="badge">Top 5 Readers</span></div>
+          <div class="tbl-wrap"><table class="tbl" id="vipTable"></table></div>
+          <p class="vip-note">* 데모 화면의 이메일은 전부 가상(example.com) 주소입니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 월별 동향 -->
+    <section class="grid">
+      <div class="card span-12">
+        <div class="card-head">
+          <h2>월별 오픈율 동향 (Hyundai vs Develon)</h2>
+          <label class="combo-toggle"><input type="checkbox" id="comboToggle"> 발송건수 콤보 표시</label>
+        </div>
+        <div class="chart-box short"><canvas id="trendChart"></canvas></div>
+        <div id="trendSendBox">
+          <div class="chart-box" style="height:150px; margin-top:10px;"><canvas id="trendSendChart"></canvas></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- 업로드 -->
+<input type="file" id="fileInput" accept=".xlsx,.xls,.csv" hidden>
+<div class="modal-backdrop" id="uploadModal">
+  <div class="modal" role="dialog" aria-modal="true">
+    <h3 id="modalTitle">엑셀 업로드 결과</h3>
+    <div id="modalBody"></div>
+    <div class="m-actions">
+      <button class="btn" type="button" id="modalClose">닫기</button>
+    </div>
+  </div>
+</div>
+
+<div class="map-tooltip" id="mapTooltip"></div>
+<div id="toast"></div>
+
+<script src="../lib/xlsx.full.min.js"></script>
+<script src="../lib/chart.umd.min.js"></script>
+<script src="js/sample-data.js"></script>
+<script src="js/data.js"></script>
+<script src="js/insights.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
