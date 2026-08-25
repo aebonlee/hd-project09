@@ -108,7 +108,14 @@ create trigger campaign_touch before update on public.campaign
 -- 뷰
 -- ----------------------------------------------------------------------------
 
-create or replace view public.campaign_view as
+
+-- ⚠ 뷰에는 `with (security_invoker = true)` 를 붙인다.
+--   붙이지 않으면 뷰는 **만든 사람(postgres)의 권한**으로 돌아, 뷰를 읽을 수 있는
+--   사람이 밑에 깔린 표의 RLS 를 통째로 지나친다. 표만 잠그고 뷰를 안 잠그면 헛일이다.
+--   (hd-project03 에서 실제로 남의 업체 실사 결과가 뷰로 그대로 보였다.
+--    tests/server.test.js 의 "업체는 보고서 뷰로도 남의 자료를 볼 수 없다" 가 잡는다)
+--   security_invoker 는 PostgreSQL 15 부터. Supabase 는 15 이상이다.
+create or replace view public.campaign_view with (security_invoker = true) as
 select c.*,
        public.rate(c.delivered, c.sent)      as delivery_rate,
        public.rate(c.opens,     c.delivered) as open_rate,
@@ -119,14 +126,14 @@ select c.*,
        (select count(*) from public.region_stat r where r.campaign_id = c.id) as region_count
 from public.campaign c;
 
-create or replace view public.region_view as
+create or replace view public.region_view with (security_invoker = true) as
 select r.*, c.brand, c.period, c.name as campaign_name,
        public.rate(r.opens,  r.sent) as open_rate,
        public.rate(r.clicks, r.sent) as click_rate
 from public.region_stat r
 join public.campaign c on c.id = r.campaign_id;
 
-create or replace view public.monthly_trend as
+create or replace view public.monthly_trend with (security_invoker = true) as
 select brand, period,
        count(*)        as campaigns,
        sum(sent)       as sent,
@@ -139,7 +146,7 @@ from public.campaign
 group by brand, period;
 
 -- 지역 합계가 캠페인 합계와 어긋나는 경우 — 엑셀 시트 사이 불일치를 드러낸다
-create or replace view public.region_mismatch as
+create or replace view public.region_mismatch with (security_invoker = true) as
 select c.id, c.brand, c.period, c.name,
        c.sent as campaign_sent, coalesce(sum(r.sent), 0) as region_sent,
        c.sent - coalesce(sum(r.sent), 0) as diff
