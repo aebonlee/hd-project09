@@ -2,6 +2,10 @@
 
 > 🌐 **배포 페이지: [https://aebonlee.github.io/hd-project09/](https://aebonlee.github.io/hd-project09/)** · 저장소: https://github.com/aebonlee/hd-project09
 
+> 🗄️ **Supabase 를 붙이려면 → [`SUPABASE-설정.md`](SUPABASE-설정.md)**
+> 데이터베이스는 **수강생 본인 계정**에 만듭니다. 계정 만들기부터 확인까지 단계별로 적어 두었습니다.
+
+
 HD건설기계 AMPS기획팀(기획: 홍재영)의 글로벌 뉴스레터 성과 통합 보고 대시보드 — 기존 Antigravity 대시보드의 업그레이드 재제작본입니다.
 
 - 현대·디벨론 **브랜드 테마 자동 전환** (디벨론 공식 컬러 가이드 적용)
