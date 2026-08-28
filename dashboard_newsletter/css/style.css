@@ -55,7 +55,7 @@
   --primary-ink: #14161a;
   --heading: #eef1f5;
   --c-hyundai: #5B8DEF;
-  --c-develon: #F05800;
+  --c-develon: #FF5F00;        /* 2026-08-29: F05800 드리프트 정정 — 공식 Main과 통일 */
   --c-main: #93a7c9;
   --ramp-1: #3a4356; --ramp-2: #55658a; --ramp-3: #7f95c1; --ramp-4: #b4c6e8;
   --gauge-track: #32363d;
@@ -99,7 +99,7 @@
   --heading: #eaf1fb;
   --focus: #5B8DEF;
   --c-hyundai: #5B8DEF;
-  --c-develon: #F05800;
+  --c-develon: #FF5F00;        /* 2026-08-29: F05800 드리프트 정정 — 공식 Main과 통일 */
   --c-main: #5B8DEF;
   --ramp-1: #2b3c5c; --ramp-2: #3d5686; --ramp-3: #5f83bf; --ramp-4: #9dbdf3;
   --gauge-track: #263752;
@@ -123,8 +123,8 @@
   --heading: #E1E3E4;
   --focus: #FF5F00;
   --c-hyundai: #5B8DEF;
-  --c-develon: #F05800;
-  --c-main: #F05800;
+  --c-develon: #FF5F00;        /* 2026-08-29: F05800 드리프트 정정 — 바로 위 --primary와 통일 */
+  --c-main: #FF5F00;
   --ramp-1: #4a3325; --ramp-2: #8a4a1c; --ramp-3: #cf5405; --ramp-4: #ff9a52;
   --gauge-track: #393939;
   --map-land: #2c2c2c;
@@ -144,9 +144,9 @@
   --border: #cfd2d4;
   --grid: rgba(22, 22, 22, 0.09);
   --primary: #FF5F00;
-  --primary-ink: #ffffff;
+  --primary-ink: #161616;      /* 2026-08-29: 백색→Charcoal — FF5F00 위 백색 텍스트는 3.05:1로 AA 미달, Charcoal은 5.94:1 */
   --heading: #161616;
-  --focus: #E73B00;
+  --focus: #161616;            /* 2026-08-29: Onward Orange(보조색·단독 사용 금지 규정 위반) → Charcoal, 대비 2.36:1→14:1 */
   --c-main: #FF5F00;
   --ramp-1: #ffd9bf; --ramp-2: #ffab70; --ramp-3: #FF5F00; --ramp-4: #b34200;
   --gauge-track: #dcdedf;

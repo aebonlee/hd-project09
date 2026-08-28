@@ -1,0 +1,32 @@
+/* ============================================================================
+ * theme-bridge.css — style.css(브랜드/모드 시스템)와 hd-theme.css(공통 레이어)를 잇는다.
+ *
+ * 문제: <body class="hd hd-app">가 hd-theme.css 의 `body.hd.hd-app{background:var(--hd-bg)}`
+ * (특정도 0,2,1)를 타는데, style.css 의 `body{background:var(--bg)}`(특정도 0,0,1)보다
+ * 특정도가 높아 파일 순서와 무관하게 항상 이긴다. 그런데 --hd-bg 는 [data-theme] 속성과
+ * OS prefers-color-scheme 만 보고, 이 프로젝트가 실제로 쓰는 [data-brand]/[data-mode]
+ * 전환은 전혀 모른다 — 그래서 DEVELON·다크를 선택해도 배경이 계속 밝게 남는다.
+ *
+ * hd-theme.css 자체는 고치지 않는다(§5.3 — 베이스는 그대로 두고 덮어쓰기 레이어를
+ * 맨 마지막에 얹는다). 대신 --hd-* 토큰 값을 이 프로젝트의 --bg 등에 그대로 별명 붙여,
+ * hd-theme.css 의 모든 소비처(.card·.btn·table·body 등)가 자동으로 브랜드/모드를 따라오게 한다.
+ * index.html 에서 hd-theme.css 보다 반드시 뒤에 로드해야 한다.
+ * ========================================================================== */
+
+:root[data-mode="light"],
+:root[data-mode="dark"] {
+  --hd-bg:        var(--bg);
+  --hd-surface:   var(--surface);
+  --hd-surface-2: var(--surface-2);
+  --hd-line:      var(--border);
+  --hd-line-soft: var(--border);
+  --hd-ink:       var(--text);
+  --hd-ink-2:     var(--text-2);
+  --hd-ink-3:     var(--muted);
+  --accent:       var(--primary);
+  --accent-deep:  var(--primary);
+  --accent-soft:  var(--surface-2);
+  --on-accent:    var(--primary-ink);
+  --hd-shadow:    var(--shadow);
+  --hd-shadow-lg: var(--shadow);
+}
